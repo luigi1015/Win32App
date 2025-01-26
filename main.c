@@ -28,11 +28,18 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
     wincl.hIcon = LoadIcon (hThisInstance, MAKEINTRESOURCE(IDI_MYICON));
     wincl.hIconSm = LoadIcon (hThisInstance, MAKEINTRESOURCE(IDI_MYICON));
     wincl.hCursor = LoadCursor (NULL, IDC_ARROW);
-    wincl.lpszMenuName = NULL;                 /* No menu */
+    wincl.lpszMenuName = "Menu";
+    // wincl.lpszMenuName = NULL;                 /* No menu */
     wincl.cbClsExtra = 0;                      /* No extra bytes after the window class */
     wincl.cbWndExtra = 0;                      /* structure or the window instance */
     /* Use Windows's default color as the background of the window */
     wincl.hbrBackground = (HBRUSH) COLOR_BACKGROUND;
+    
+    // Create the menu
+    HMENU hMenu = CreateMenu();
+    HMENU hMenuPopup = CreateMenu();
+    AppendMenu(hMenuPopup, MF_STRING, IDM_FILE_EXIT, TEXT("Exit"));
+    AppendMenu(hMenu, MF_POPUP, (UINT_PTR)hMenuPopup, TEXT("File"));
 
     /* Register the window class, and if it fails quit the program */
     if (!RegisterClassEx (&wincl))
@@ -49,7 +56,8 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
            544,                 /* The programs width */
            375,                 /* and height in pixels */
            HWND_DESKTOP,        /* The window is a child-window to desktop */
-           NULL,                /* No menu */
+           hMenu,                /* Menu */
+           // NULL,                /* No menu */
            hThisInstance,       /* Program Instance handler */
            NULL                 /* No Window Creation data */
            );
@@ -77,6 +85,14 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 {
     switch (message)                  /* handle the messages */
     {
+        case WM_COMMAND: // File Menu commands
+            switch(LOWORD(wParam))
+            {
+                case IDM_FILE_EXIT: // Exit command
+                     PostMessage(hwnd, WM_CLOSE, 0, 0); // Send a message to terminate the app
+                break;
+            }
+            break;
         case WM_DESTROY:
             PostQuitMessage (0);       /* send a WM_QUIT to the message queue */
             break;
