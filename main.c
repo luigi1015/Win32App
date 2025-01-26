@@ -1,4 +1,5 @@
 #include <windows.h>
+#include "resource.h"
 
 /*  Declare Windows procedure  */
 LRESULT CALLBACK WindowProcedure (HWND, UINT, WPARAM, LPARAM);
@@ -23,9 +24,9 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
     wincl.style = CS_DBLCLKS;                 /* Catch double-clicks */
     wincl.cbSize = sizeof (WNDCLASSEX);
 
-    /* Use default icon and mouse-pointer */
-    wincl.hIcon = LoadIcon (NULL, IDI_APPLICATION);
-    wincl.hIconSm = LoadIcon (NULL, IDI_APPLICATION);
+    /* Use my icon and default mouse-pointer */
+    wincl.hIcon = LoadIcon (hThisInstance, MAKEINTRESOURCE(IDI_MYICON));
+    wincl.hIconSm = LoadIcon (hThisInstance, MAKEINTRESOURCE(IDI_MYICON));
     wincl.hCursor = LoadCursor (NULL, IDC_ARROW);
     wincl.lpszMenuName = NULL;                 /* No menu */
     wincl.cbClsExtra = 0;                      /* No extra bytes after the window class */

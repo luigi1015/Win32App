@@ -4,7 +4,7 @@
 CPP  = g++.exe
 CC   = gcc.exe
 WINDRES = windres.exe
-RES  = 
+RES  = Win32App_private.res
 OBJ  = main.o $(RES)
 LINKOBJ  = main.o $(RES)
 LIBS =  -L"C:/Dev-Cpp/lib" -mwindows  
@@ -28,3 +28,6 @@ $(BIN): $(OBJ)
 
 main.o: main.c
 	$(CC) -c main.c -o main.o $(CFLAGS)
+
+Win32App_private.res: Win32App_private.rc menu.rc 
+	$(WINDRES) -i Win32App_private.rc --input-format=rc -o Win32App_private.res -O coff 

@@ -1,0 +1,4 @@
+#include "resource.h"
+
+// Icon
+IDI_MYICON ICON "Icon-J-32.ico"

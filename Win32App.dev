@@ -1,7 +1,7 @@
 [Project]
-FileName=WIn32App.dev
+FileName=Win32App.dev
 Name=Win32App
-UnitCount=1
+UnitCount=3
 Type=0
 Ver=1
 ObjFiles=
@@ -56,4 +56,23 @@ OriginalFilename=
 ProductName=
 ProductVersion=
 AutoIncBuildNr=0
+
+[Unit2]
+FileName=resource.h
+CompileCpp=0
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit3]
+FileName=menu.rc
+Folder=Resources
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
 
