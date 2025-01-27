@@ -1,2 +1,3 @@
 #define IDI_MYICON 101
+#define IDI_BUTTON 102
 #define IDM_FILE_EXIT 4001

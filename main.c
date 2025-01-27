@@ -62,6 +62,19 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
            NULL                 /* No Window Creation data */
            );
 
+	HWND hwndButton = CreateWindow(
+		TEXT("BUTTON"),		// Predefined class; Unicode assumed
+		TEXT("OK"),			// Button text
+		WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,  // Styles
+		10,					// x position
+		10,					// y position
+		50,					// Button width
+		25,					// Button height
+		hwnd,				// Parent window
+		(HMENU)IDI_BUTTON,	// No menu.
+		(HINSTANCE)GetWindowLongPtr(hwnd, GWLP_HINSTANCE),
+		NULL);				// Pointer not needed.
+
     /* Make the window visible on the screen */
     ShowWindow (hwnd, nFunsterStil);
 
@@ -91,6 +104,9 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
                 case IDM_FILE_EXIT: // Exit command
                      PostMessage(hwnd, WM_CLOSE, 0, 0); // Send a message to terminate the app
                 break;
+				case IDI_BUTTON: // Button Click
+					MessageBox(NULL, TEXT("You clicked the button!"), TEXT("Message"), MB_OK); // Create a popup
+				break;
             }
             break;
         case WM_DESTROY:
