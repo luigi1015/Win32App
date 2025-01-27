@@ -46,6 +46,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
         return 0;
 
     /* The class is registered, let's create the program*/
+	// Create the window
     hwnd = CreateWindowEx (
            0,                   /* Extended possibilites for variation */
            szClassName,         /* Classname */
@@ -57,11 +58,11 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
            375,                 /* and height in pixels */
            HWND_DESKTOP,        /* The window is a child-window to desktop */
            hMenu,                /* Menu */
-           // NULL,                /* No menu */
            hThisInstance,       /* Program Instance handler */
            NULL                 /* No Window Creation data */
            );
 
+	// Create a button
 	HWND hwndButton = CreateWindow(
 		TEXT("BUTTON"),		// Predefined class; Unicode assumed
 		TEXT("OK"),			// Button text
