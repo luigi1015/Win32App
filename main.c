@@ -76,6 +76,20 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 		(HINSTANCE)GetWindowLongPtr(hwnd, GWLP_HINSTANCE),
 		NULL);				// Pointer not needed.
 
+	// Create a text field
+	HWND hwndTextBox = CreateWindow(
+		"EDIT",
+		"Test Text", // I think this is the text that automatically gets appears when the element loads.
+		WS_VISIBLE | WS_CHILD | ES_LEFT,
+		10, // x position
+		100, // y position
+		100, // Width
+		100, // Height
+		hwnd,
+		NULL,
+		(HINSTANCE)GetWindowLongPtr(hwnd, GWLP_HINSTANCE),
+		NULL);
+
 	/* Make the window visible on the screen */
 	ShowWindow (hwnd, nFunsterStil);
 
