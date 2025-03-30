@@ -79,7 +79,7 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 	// Create a text field
 	HWND hwndTextBox = CreateWindow(
 		"EDIT",
-		"Test Text", // I think this is the text that automatically gets appears when the element loads.
+		"Test Text", // This is the text that automatically gets appears when the element loads.
 		WS_VISIBLE | WS_CHILD | ES_LEFT,
 		10, // x position
 		100, // y position
