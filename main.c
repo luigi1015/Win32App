@@ -12,6 +12,7 @@ HWND hwndTextBox;
 HWND hwndLabel;
 HWND hwndPasswordInput;
 HWND hwndNumberInput;
+HWND hwndURLInput;
 
 int WINAPI WinMain (HINSTANCE hThisInstance,
 					HINSTANCE hPrevInstance,
@@ -96,6 +97,20 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 		(HINSTANCE)GetWindowLongPtr(hwnd, GWLP_HINSTANCE),
 		NULL);
 
+	// Create a button for the text box
+	HWND hwndButton = CreateWindow(
+		TEXT("BUTTON"),		// Predefined class; Unicode assumed
+		TEXT("Hit me!"),			// Button text
+		WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,  // Styles
+		10,					// x position
+		150,					// y position
+		60,					// Button width
+		25,					// Button height
+		hwnd,				// Parent window
+		(HMENU)IDI_BUTTON,	// No menu.
+		(HINSTANCE)GetWindowLongPtr(hwnd, GWLP_HINSTANCE),
+		NULL);				// Pointer not needed.
+
 	// Create a label to hold the copied text
 	hwndLabel = CreateWindow(
 		"STATIC",
@@ -110,17 +125,45 @@ int WINAPI WinMain (HINSTANCE hThisInstance,
 		(HINSTANCE)GetWindowLongPtr(hwnd, GWLP_HINSTANCE),
 		NULL);
 
-	// Create a button for the text box
-	HWND hwndButton = CreateWindow(
+	// Create a label for the URL field
+	HWND hwndURLBoxLabel = CreateWindow(
+		"STATIC",
+		"URL Input", // This is the text that automatically gets appears when the element loads.
+		WS_VISIBLE | WS_CHILD | ES_LEFT | WS_BORDER,
+		250, // x position
+		10, // y position
+		110, // Width
+		20, // Height
+		hwnd,
+		NULL,
+		(HINSTANCE)GetWindowLongPtr(hwnd, GWLP_HINSTANCE),
+		NULL);
+
+	// Create a URL field
+	hwndURLInput = CreateWindow(
+		"EDIT",
+		"Test URL", // This is the text that automatically gets appears when the element loads.
+		WS_VISIBLE | WS_CHILD | ES_LEFT | WS_BORDER | ES_MULTILINE | ES_WANTRETURN | ES_AUTOVSCROLL,
+		250, // x position
+		40, // y position
+		200, // Width
+		20, // Height
+		hwnd,
+		NULL,
+		(HINSTANCE)GetWindowLongPtr(hwnd, GWLP_HINSTANCE),
+		NULL);
+
+	// Create a button for the URL field
+	HWND hwndURLButton = CreateWindow(
 		TEXT("BUTTON"),		// Predefined class; Unicode assumed
 		TEXT("Hit me!"),			// Button text
 		WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,  // Styles
-		10,					// x position
-		150,					// y position
+		250,					// x position
+		60,					// y position
 		60,					// Button width
 		25,					// Button height
 		hwnd,				// Parent window
-		(HMENU)IDI_BUTTON,	// No menu.
+		(HMENU)IDI_URLBUTTON,	// No menu.
 		(HINSTANCE)GetWindowLongPtr(hwnd, GWLP_HINSTANCE),
 		NULL);				// Pointer not needed.
 
@@ -272,6 +315,22 @@ void copyNumberText()
 	}
 }
 
+// Copies the text from the URL field to the label
+void copyURLText()
+{
+	int textLength = GetWindowTextLength(hwndURLInput);
+	if (textLength > 0)
+	{
+		// Get the text from the text box
+		int bufferLength = textLength + 1;
+		char textBuffer[bufferLength];
+		GetWindowText(hwndURLInput, textBuffer, bufferLength);
+
+		// Set the text on the label
+		SetWindowText(hwndLabel, textBuffer);
+	}
+}
+
 /*  This function is called by the Windows function DispatchMessage()  */
 LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -297,6 +356,11 @@ LRESULT CALLBACK WindowProcedure (HWND hwnd, UINT message, WPARAM wParam, LPARAM
 					copyNumberText();
 					// Create a popup
 					MessageBox(NULL, TEXT("You clicked the number button!"), TEXT("Message"), MB_OK);
+				break;
+				case IDI_URLBUTTON: // Button Click
+					copyURLText();
+					// Create a popup
+					MessageBox(NULL, TEXT("You clicked the button!"), TEXT("Message"), MB_OK);
 				break;
 			}
 			break;
